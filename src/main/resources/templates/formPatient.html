@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head>
+    <meta charset="UTF-8"/>
+    <title>Form Patients</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" th:href="@{patients}">Home</a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+
+      <a class="nav-link" href="#">Patients </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Medecin</a>
+    </li>
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Patients
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" th:href="@{formPatient}">Ajouter </a>
+        <a class="dropdown-item" href="#">Chercher</a>
+        
+      </div>
+    </li>
+  </ul>
+ <ul class="navbar-nav ml-auto">
+
+  <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        UserName
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Login</a>
+        <a class="dropdown-item" href="#">Logout</a>
+        <a class="dropdown-item" href="#">Profile</a>
+        
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+<form th:action="@{savePatient}" method="post">
+<div class ="form-group">
+<label class ="control-label">Name:</label>
+<input type="text" name="nom" class ="form-control" th:value="${patient.nom}">
+<span th:errors=${patient.nom}></span>
+</div>
+<div class ="form-group">
+<label class ="control-label">Date Naissance:</label>
+<input type="date" name="dateNaissance" class ="form-control" th:value="${patient.dateNaissance}">
+<span  th:errors=${patient.dateNaissance}></span>
+</div>
+<div class ="form-group">
+<label class ="control-label">Score:</label>
+<input type="int" name="score" class ="form-control" th:value="${patient.score}">
+<span th:errors=${patient.score}></span>
+</div>
+<div class ="form-group">
+<label class ="control-label">Malade:</label>
+<input type="checkbox" name="malade" th:checked="${patient.malade}">
+<span th:errors=${patient.malade}></span>
+</div>
+<button class="btn btn-success" type="submit">Save</button>
+</form>
+</div>
+</body> 
+</html>

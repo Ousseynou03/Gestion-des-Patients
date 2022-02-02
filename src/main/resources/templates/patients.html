@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head>
+    <meta charset="UTF-8"/>
+    <title>Page Patients</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" th:href="@{patients}">Home</a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Patients </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Medecin</a>
+    </li>
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Patients
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" th:href="@{formPatient}">Ajouter </a>
+        <a class="dropdown-item" href="#">Chercher</a>
+        
+      </div>
+    </li>
+  </ul>
+ <ul class="navbar-nav ml-auto">
+
+  <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        UserName
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Login</a>
+        <a class="dropdown-item" href="#">Logout</a>
+        <a class="dropdown-item" href="#">Profile</a>
+        
+      </div>
+    </li>
+  </ul>
+</nav>
+
+
+
+
+
+
+
+
+
+<div class="container mt-5">
+<div class="card">
+<div  class="card-header">Liste des patients</div>
+<div class="card-body">
+<form method="GET" th:action="@{patients}">
+ <div class="form-group">
+  <label>Name</label>
+<input type="text" name="keyword" th:value ="${keyword}">
+<button class="btn bnt-success">Chercher</button>
+</div>
+</form>
+<table class="table">
+<tr>
+<th>ID</th><th>Name</th><th>Date Naissance</th><th>Score</th><th>Malade</th>
+</tr>
+<tr th:each="p:${patients}">
+<td th:text="${p.id}"></td>
+<td th:text="${p.nom}"></td>
+<td th:text="${p.dateNaissance}"></td>
+<td th:text="${p.score}"></td>
+<td th:text="${p.malade}"></td>
+<td><a onclick="return confirm('Etes vous sûr de vouloir supprimer ?')" class="btn btn-danger" th:href = "@{deletePatient(id=${p.id},keyword =${keyword},page = ${currentPage},size=${size})}">Delete</a></td>
+</tr>
+</table>
+<ul class="nav nav-pills">
+<li  th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage?'btn btn-primary': 'btn'}" th:href="@{patients(page=${status.index},keyword=${keyword})}" th:text="${status.index}"></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</body> 
+</html>
